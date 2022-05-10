@@ -1,0 +1,144 @@
+---
+title: "1. Introduction assignment"
+author: "Dennis Wiersma"
+date: '2022-04-25'
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Opdracht 1 - Experiment
+
+## Vraag1
+Welke parameters (constantes) zitten er in de vergelijking?
+
+-  De toevoeging van 10
+-  Het correctiepercentage van 10%
+
+## Vraag 2
+Welke variabele uit de vergelijking veranderd steeds?
+
+-   nieuw volume
+
+## Vraag 3
+Wat is de initiele waarde van de variabele uit vraag 2?
+
+-   0
+
+## Vraag 4
+Wat is het tijdsframe van dit experiment? (t = 0 tot t = ....... ) 
+
+-   5
+
+## Vraag 5
+Wanneer is het evenwichtsmoment?
+
+-   Wanneer het totale volume op 100 zit.
+
+## Vraag 6
+Uit welke variabele uit de vergelijking kunnen we dat aflezen?
+
+-   0.1 \* nieuw volume
+
+# Opdracht 2
+
+```{r}
+library(deSolve)
+
+parameters <- c(addVolume = 10, pV = 0.1) 
+
+volume <- function(t,y,parms){
+  with(as.list(c(parms)),{
+         dY <- addVolume - pV * (y)
+         return(list(c(dY)))
+       }
+       )
+}
+
+state <- c(Volume = 0)
+times <- seq(0, 100,  by = 1)
+
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+
+head(out)
+plot(out)
+```
+
+## Vraag 1
+Verander de parameters. Wat is het effect?  
+
+-   Bij een verandering van addVolume veranderd de y waarop het evenwicht bereikt wordt. 
+-   Bij een verandering van pV veranderen zowel het verloop van de curve, als de y waarop het evenwicht bereikt wordt.
+
+## Vraag 2
+Verander de initiële waarde. Wat is het effect?  
+
+-   Dit veranderd voornamelijk gewoon de y waarde waarbij de grafiek begint, en houd de grootte van de verandering kleiner bij een grotere start waarde. Wanneer de start waarde boven de y waarde op het evenwicht punt ligt, zal de grafiek omdraaien om juist naar beneden te gaan i.p.v. omhoog.
+
+## Vraag 3
+Verander de timeframe. Wat is het effect?
+
+-   Bij een veel grotere t neemt de afvlakking een groot deel van de figuur in beslag, terwijl bij een kleinere t een heel andere figuur kan worden gevonden, omdat je als het ware inzoomt op een klein stukje van de figuur.
+
+
+## Vraag 4
+Verander het originele model zodat de correctie niet is op basis van (y+addVolume) maar y. Wanneer is er nu een evenwichtstoestand?
+
+-   De evenwichtstoestand wordt nu pas bereikt wanneer y 100 is.
+
+# Opdracht 3
+## A simple ODE: chaos in the atmosphere
+
+```{r}
+parameters <- c(a = -8/3,
+                 b = -10,
+                 c = 28)
+
+state <- c(X = 1,
+           Y = 1,
+           Z = 1)
+
+Lorenz <- function(t, state, parameters) {
+  with(as.list(c(state, parameters)),{
+    # rate of change
+    dX <- a*X + Y*Z
+    dY <- b * (Y-Z)
+    dZ <- -X*Y +c*Y - Z
+    
+    # return the rate of change
+    list(c(dX, dY, dZ))
+  }) # ends the with(as.list...
+}
+
+times <- seq(0, 100, by = 0.01)
+
+out <- ode(y = state, times = times, func = Lorenz, parms = parameters)
+
+head(out)
+
+par(oma = c(0, 0, 2, 0))
+plot(out, xlab = "time", ylab = "-")
+plot(out[, "X"], out[, "Z"], pch = ".")
+mtext("Lorenz model" ,outer = TRUE, side = 3, cex = 1.5)
+```
+Parameters:
+-   a
+-   b
+-   c
+
+State (initiële waardes):
+-   X
+-   Y
+-   Z
+
+Tijdsframe:
+-   100 dagen in stapjes van honderdste dagen.
+
+Plot omschrijving:
+-   Een figuur met drie verschillende plots. Iedere plot lijkt een soort eigen patroon te hebben, al lijken Y en Z meer op elkaar dan op X.
+

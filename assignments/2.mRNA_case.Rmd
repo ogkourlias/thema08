@@ -1,0 +1,70 @@
+---
+title: "2.mRNA_case"
+author: "Dennis Wiersma"
+date: '2022-05-10'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Opdracht 1
+
+## Vraag 1
+
+R is het aantal transcripts r is de mate van verval van bestaande transcripts m is het aantal nieuwe transcripts dat per seconde wordt geproduceerd
+
+## Vraag 2
+
+<https://www.pnas.org/doi/full/10.1073/pnas.1420404112>
+
+## Vraag 3
+
+![](images/2%20tekening%20shit.png)
+
+## Vraag 4
+
+Omdat je de verandering van R over de verandering van een bepaalde tijdsframe wilt zien.
+
+# Opdracht 2
+
+```{r}
+library(deSolve)
+
+parameters_inc <- c(
+  r = 0.1,
+  m = 666
+)
+
+parameters_dec <- c(
+  r = 0.25,
+  m = 666
+)
+
+parameters_std <- c(
+  r = 0.1665,
+  m = 666
+)
+
+state <- c(R = 4000)
+
+mRNA <- function(t, state, parameters){
+  with(as.list(c(state, parameters)),{
+    dR <- -r * R + m
+    return(list(c(dR)))
+  }
+  )
+}
+
+times <- seq(0, 200)
+
+out_inc <- ode(y = state, times = times, func = mRNA, parms = parameters_inc)
+out_dec <- ode(y = state, times = times, func = mRNA, parms = parameters_dec)
+out_std <- ode(y = state, times = times, func = mRNA, parms = parameters_std)
+plot(out_inc, col = "green", ylab = "number of mRNA transcripts", ylim = c(2000, 7000))
+lines(out_dec, col = "blue")
+lines(out_std, col = "red")
+
+```
+
