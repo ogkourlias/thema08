@@ -1,0 +1,85 @@
+---
+title: "Glucocorticoid receptor dynamica"
+author: "Orfeas Gkourlias"
+date: '2022-05-11'
+output: 
+  pdf_document:
+    highlight: kate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Corticoids
+
+Corticosteroids are used in anti-inflammatory therapy. It deacetylates the activated inflammatory genes, by binding of glucocorticoid receptors to co-activator molecules. The steroid also causes some pro-inflammatory mRNA particles to have decreased stability, which in turn makes them degrade more often.
+
+# Model explanation
+
+By introducing the steroid to a cell, it binds in the cytosol with GR, the glucocorticoid receptors. The product then gets phosphorylated and heads to the nucleus for transcription. Because of the introduction of the steroid, the GR receptor mRNA and inhibited mRNA has a decrease in transcription. The enhanced mRNA sees an increase in transcription together with the BS mRNA. The end result of this being more GR molecules, which therefore positively regulate the inflammatory fighting genes involved. These genes then reduce the inflammatory response in the affected cells & tissue.
+
+# Model implementation
+
+```{r}
+library(deSolve)
+
+MPL.ngml <- 20
+
+parameters <- c(
+  k.s_Rm = 2.90,
+  IC.50_Rm = 26.2,
+  k.on = 0.00329,
+  k.T = 0.63,
+  k.re = 0.57,
+  Rf = 0.49,
+  k.d_R = 0.0572,
+  k.d_Rm = 0.612,
+  k.s_r = 3.22,
+  D = MPL.ngml * 1000 * 1 / 374.477
+)
+
+state <- c(
+  R.m0 = 4.74,
+  R.0 = 267,
+  DR = 0,
+  DRN = 0
+)
+
+# glucocorticoid receptor dynamics
+GRD <- function(t, state, parameters){
+  with(as.list(c(state, parameters)),{
+    
+    dR.m <- k.s_Rm * (1 - DRN / (IC.50_Rm + DRN) - k.d_Rm * R.m0)
+    
+    dR <- k.s_r * R.m0 + Rf * k.re * DRN - k.on * D * R.0 - k.d_R * R.0
+    
+    dDR <- k.on * D * R.0 - k.T * DR
+    
+    dDRN <- k.T * DR - k.re * DRN
+    
+    return(list(c(dR.m, dR, dDR, dDRN)))
+  }
+  )
+}
+
+# Duration of 2 days, defined in hours
+times <- seq(0, 48)
+
+out <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+                                           "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
+    main = c("Rm", "R", "DR", "DR (Nucleus)"))
+
+```
+
+# Result discussion
+
+The plots progress in distinct ways. Rm declines significantly after 4 hours or so. At the same time, DR and DRN increase significantly, hitting their maximum values while Rm hits its minimum. This can be explained because the introduction of the steroid (D), combined with the presence of R (formed from Rm), allows for DR to form. Therefore, the amount of lone receptor mRNA (Rm) decreases because it's the component that bonds with the steroid (D) to form the DR complex. It's important to note that DRN increases slightly later, because the DR still needs to undergo activation phosphorylation and translocation dimerisation before it can enter the nucleus and be identified as DRN.
+
+The Rm value then increases slightly over the remaining hours, hitting a point of equilibrium between 30 and 35 hours. This indicates that the mRNA receptors do keep producing after all of the steroid has been depleted, at relatively low speed, instead of hitting a minimum and staying there.
+
+R decreases exponentially as DRN increases, hitting equilibrium also around 30 hours in. The production of R is now mostly dependent on Rm, because the recycling of DRN has slowed down, which has also hit equilibrium at this point. It therefore stays at around a concentration of 25 fmol per mg of protein.
+
+The most important variable for the effectiveness of the steroid is most likely the start amount of R present. This influences the amount of DR that can initially be formed, because D needs plenty of R to be effective.
