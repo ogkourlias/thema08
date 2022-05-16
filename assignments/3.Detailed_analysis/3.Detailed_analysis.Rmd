@@ -38,7 +38,7 @@ parameters <- c(
   k.d_R = 0.0572,
   k.d_Rm = 0.612,
   k.s_r = 3.22,
-  D = D01
+  D = 0
 )
 
 state <- c(
@@ -68,12 +68,65 @@ GRD <- function(t, state, parameters){
 # Duration of 2 days, defined in hours
 times <- seq(0, 168)
 
-out <- ode(y = state, times = times, func = GRD, parms = parameters)
+# Median values of experimental data per time value
+medians <- aggregate(data[,c("MPL_conc","mRNA","Free_receptor")],
+                     list(data$dose,data$time), median, na.rm=T)
+names(medians)[1:2] <- c("dose","time")
 
-par(1,2)
-plot(data$Free_receptor)
-lines(out[,3])
-plot(data$mRNA)
-lines(out[,2])
+# Sets parameter D to value for 0.1 mg drug/kg rat/h value
+parameters["D"] = D01
+# Performs the modelling function
+out01 <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+# Sets parameter D to value for 0.3 mg drug/kg rat/h value
+parameters["D"] = D03
+# Performs the modelling function
+out03 <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+par(mfrow = c(2,2))
+# Plots a scatter plot with experimental data for Rm where dose == 0.1 mg drug/kg rat/h
+plot(data$mRNA ~ data$time, 
+     main = "Rm (0.1 mg drug/kg rat/h)", 
+     ylab = "Rm (fmol/g liver)", 
+     xlab = "Time")
+# Adds the model for Rm as a black line
+lines(out01[,2])
+# Adds medians of the experimental data for Rm as a red line
+lines(medians[medians["dose"] == 0.1,]$mRNA ~ medians[medians["dose"] == 0.1,]$time, 
+      col = "red")
+
+# Plots a scatter plot with experimental data for R where dose == 0.1 mg drug/kg rat/h
+plot(data$Free_receptor ~ data$time, 
+     main = "R (0.1 mg drug/kg rat/h)", 
+     ylab = "R (fmol/mg protein)", 
+     xlab = "Time")
+# Adds the model for R as a black line
+lines(out01[,3])
+# Adds medians of the experimental data for R as a red line
+lines(medians[medians["dose"] == 0.1,]$Free_receptor ~ medians[medians["dose"] == 0.1,]$time, 
+      col = "red")
+
+# Plots a scatter plot with experimental data for Rm where dose == 0.3 mg drug/kg rat/h
+plot(data$mRNA ~ data$time, 
+     main = "Rm (0.3 mg drug/kg rat/h)", 
+     ylab = "Rm (fmol/g liver)", 
+     xlab = "Time")
+# Adds the model for Rm as a black line
+lines(out03[,2])
+# Adds medians of the experimental data for Rm as a red line
+lines(medians[medians["dose"] == 0.3,]$mRNA ~ medians[medians["dose"] == 0.3,]$time, 
+      col = "red")
+
+# Plots a scatter plot with experimental for R data where dose == 0.3 mg drug/kg rat/h
+plot(data$Free_receptor ~ data$time, 
+     main = "R (0.3 mg drug/kg rat/h)", 
+     ylab = "R (fmol/mg protein)", 
+     xlab = "Time")
+# Adds the model for R as a black line
+lines(out03[,3])
+# Adds medians of the experimental data for R as a red line
+lines(medians[medians["dose"] == 0.3,]$Free_receptor ~ medians[medians["dose"] == 0.3,]$time, 
+      col = "red")
+
 ```
 
