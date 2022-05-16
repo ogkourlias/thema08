@@ -65,7 +65,7 @@ GRD <- function(t, state, parameters){
   )
 }
 
-# Duration of 2 days, defined in hours
+# Duration of 7 days, defined in hours
 times <- seq(0, 168)
 
 # Median values of experimental data per time value
