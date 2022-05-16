@@ -9,6 +9,25 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(deSolve)
 ```
 
 # Comparing simulation data with experimental data for two dosis
+
+```{r}
+data <- read.csv("MPL.csv", na.strings = "NA")
+
+median_MPL_01 <- median(data$MPL_conc[data$dose==0.1], na.rm=T)
+median_MPL_03 <- median(data$MPL_conc[data$dose==0.3], na.rm=T)
+parameters <- c(
+  D01 = median_MPL_01 * 1000/374.471,
+  D03 = median_MPL_03 * 1000/374.471
+
+)
+
+medians <- aggregate(data[,c("MPL_conc","mRNA","Free_receptor")],list(data$dose,data$time), median, na.rm=T)
+names(medians)[1:2] <- c("dose","time")
+head(medians)
+
+medians
+```
