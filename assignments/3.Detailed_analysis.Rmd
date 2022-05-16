@@ -1,0 +1,14 @@
+---
+title: "3.Detailed_analysis"
+author: "Dennis Wiersma"
+date: '2022-05-16'
+output: 
+  pdf_document:
+    highlight: kate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Comparing simulation data with experimental data for two dosis
