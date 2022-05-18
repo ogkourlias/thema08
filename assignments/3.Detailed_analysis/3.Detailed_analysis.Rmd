@@ -227,7 +227,10 @@ state <- c(
 
 # glucocorticoid receptor dynamics
 GRD <- function(t, state, parameters){
+  
   with(as.list(c(state, parameters)),{
+    
+    D <- ifelse(t > 30, 0, D) 
     
     dR.m <- k.s_Rm * (1 - DRN / (IC.50_Rm + DRN) - k.d_Rm * R.m0)
     
@@ -242,22 +245,18 @@ GRD <- function(t, state, parameters){
   )
 }
 
-D20 <- function(t, state, parameters){
-  with (as.list(state, parameters),{
-    #parameters["D"] = 0
-    D <- 0
-    return(c(D))
-  })
-}
-
 # Duration of 2 days, defined in hours
 times <- seq(0, 48)
 
-out <- ode(y = state, times = times, func = GRD, parms = parameters, events = list(func = D20, time = 30))
+out <- ode(y = state, times = times, func = GRD, parms = parameters)
 
 plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
                                            "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
     main = c("Rm", "R", "DR", "DR (Nucleus)"))
 
 ```
+
+As you can see in the figure above, both Rm and R increase and stabilise at a higher level, while DR and DRN do the exact opposite. When we remove our reactant D, DR decreases since it can't be synthesised anymore. The same is true for DRN since it needs DR to form. Now that there is less DRN present in the system, Rm production isn't inhibited any longer. Therefore, it's concentration will increase and balance out at a new, higher equilibrium. The concentration of R will follow a similar pattern since Rm is now present at a higher concentration, and there is no more D available to bind to R.
+
+## Question 3
 
