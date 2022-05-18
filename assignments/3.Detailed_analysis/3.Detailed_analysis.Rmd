@@ -287,6 +287,7 @@ for (val in k.on_var){
   plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
                                            "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
     main = c("Rm", "R", "DR", "DR (Nucleus)"))
+  parameters["k.on"] = 0.00329
 }
 
 for (val in k.re_var){
@@ -295,5 +296,34 @@ for (val in k.re_var){
   plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
                                            "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
     main = c("Rm", "R", "DR", "DR (Nucleus)"))
+  parameters["k.re"] = 0.57
 }
+```
+
+Chaning the k.on values results in different slopes. The lower the value the slower R reaches its peak and equilibrium, compared to the default value. This goes for all but Rm in the plots. This can be explained because the total amount of mRNA would not be affected by the rates.
+
+The same change can be observed for the different K.re values, but these seem to drop off and then reach the same equilibrium, instead of starting at the lower point.
+
+## Question 4
+To completely block the synthesis of receptors, k.s_r would have to put to 0, because then the synthesis of the receptors would completely stop.
+
+```{r}
+parameters["k.s_r"] = 0
+out <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+                                           "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
+    main = c("Rm", "R", "DR", "DR (Nucleus)"))
+
+parameters["k.s_r"] = 3.22
+```
+R just reduces to 0, as can be seen in the plot.
+
+## Question 5:
+```{r}
+#ks_Rm.var = c()
+#ks_Rm = 2.9/5  kd_Rm=2.9/5/4.74
+#ks_Rm = 2.9/2  kd_Rm=2.9/2/4.74
+#ks_Rm = 2.9*2  kd_Rm=2.9*2/4.74
+#ks_Rm = 2.9*5  kd_Rm=2.9*5/4.74
 ```
