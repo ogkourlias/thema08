@@ -129,4 +129,12 @@ lines(medians[medians["dose"] == 0.3,]$Free_receptor ~ medians[medians["dose"] =
       col = "red")
 
 ```
+## Questions
+1: To determine whether the experimental data aligns with the model that has been made. This could show whether the model which has been made is applicable to practical experimental results, and whether or not it can be used to predict future results.
+
+2: The amount of receptors (R) as a function of time is very dependent on the value of D. The more D is present in the system, the faster the receptors get saturated. The R values drop significantly faster as a result when increasing the dose of D. 
+
+The Rm (mRNA) values are way less responsive to a significant change in the D value. It hits equilibrium around the same time.
+
+3: They're not very in line, because there's not enough experimental data to construct a reliable model. For example, at each moment of assessment only 5 measurements have been taken. Had there been more, then they would've overlapped more consistently.
 
