@@ -260,3 +260,40 @@ As you can see in the figure above, both Rm and R increase and stabilise at a hi
 
 ## Question 3
 
+```{r}
+GRD <- function(t, state, parameters){
+  with(as.list(c(state, parameters)),{
+    
+    # Removed DRN's influence on R.m
+    dR.m <- k.s_Rm * (IC.50_Rm - k.d_Rm * R.m0)
+    
+    dR <- k.s_r * R.m0 + Rf * k.re * DRN - k.on * D * R.0 - k.d_R * R.0
+    
+    dDR <- k.on * D * R.0 - k.T * DR
+    
+    dDRN <- k.T * DR - k.re * DRN
+    
+    return(list(c(dR.m, dR, dDR, dDRN)))
+  }
+  )
+}
+
+k.on_var <- c(0.00329/5, 0.00329/2, 0.00329*2, 0.00329*5)
+k.re_var <- c(0.57/5, 0.57/2, 0.57*2, 0.57*5)
+
+for (val in k.on_var){
+  parameters["k.on"] = val
+  out <- ode(y = state, times = times, func = GRD, parms = parameters)
+  plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+                                           "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
+    main = c("Rm", "R", "DR", "DR (Nucleus)"))
+}
+
+for (val in k.re_var){
+  parameters["k.re"] = val
+  out <- ode(y = state, times = times, func = GRD, parms = parameters)
+  plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+                                           "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
+    main = c("Rm", "R", "DR", "DR (Nucleus)"))
+}
+```
