@@ -321,9 +321,18 @@ R just reduces to 0, as can be seen in the plot.
 
 ## Question 5:
 ```{r}
-#ks_Rm.var = c()
-#ks_Rm = 2.9/5  kd_Rm=2.9/5/4.74
-#ks_Rm = 2.9/2  kd_Rm=2.9/2/4.74
-#ks_Rm = 2.9*2  kd_Rm=2.9*2/4.74
-#ks_Rm = 2.9*5  kd_Rm=2.9*5/4.74
+ks_Rm.var = c(2.9/5, 2.9/2, 2.9*2, 2.9*5)
+kd_Rm.var = c(2.9/5/4.74, 2.9/2/4.74, 2.9*2/4.74, 2.9*5/4.74)
+i = 0
+
+for (val in ks_Rm.var){
+  i  =+ 1
+  parameters["k.s_Rm"] = val
+  parameters["k.d_Rm"] = kd_Rm.var[i]
+  out <- ode(y = state, times = times, func = GRD, parms = parameters)
+  plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+                                           "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
+    main = c("Rm", "R", "DR", "DR (Nucleus)"))
+}
 ```
+By changing the production rates of mRNA together with the degradation rates, different observations are made. The lower the values, the slower it takes for DR to form. The higher the values, the faster the mRNA accumulates and makes the other processes hit the equilibrium. By adjusting the degradation rate too, the total Rm won't increase indefinetly.
