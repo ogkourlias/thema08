@@ -308,10 +308,13 @@ The same change can be observed for the different K.re values, but these seem to
 To completely block the synthesis of receptors, k.s_r would have to put to 0, because then the synthesis of the receptors would completely stop.
 
 ```{r}
-parameters["k.s_r"] = 0
-out <- ode(y = state, times = times, func = GRD, parms = parameters)
 
-plot(out, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
+out1 <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+parameters["k.s_r"] = 0
+out2 <- ode(y = state, times = times, func = GRD, parms = parameters)
+
+plot(out1, out2, xlab = "Time in hours", ylab = c("Rm (fmol/g liver)", "R (fmol/mg protein)",
                                            "DR (fmol/mg protein)", "DR (fmol/mg protein)"),
     main = c("Rm", "R", "DR", "DR (Nucleus)"))
 
