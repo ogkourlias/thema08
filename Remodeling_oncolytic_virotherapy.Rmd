@@ -21,6 +21,58 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Methods
 
+## Variable explanations
+
+| Variable    | Explanation |
+|-------------|----------------|
+| $t$         | Time |
+| $H$         | Normal (Healthy) cell type |
+| $C$         | Tumour (Cancerous) cell type |
+| $H_S$       | Normal (Healthy) cell that is susceptible |
+| $H_I$       | Normal (Healthy) cell that is infected |
+| $C_S$       | Tumour (Cancerous) cell that is susceptible |
+| $C_I$       | Tumour (Cancerous) cell that is infected |
+| $K_H$       | Carrying capacity of normal (Healthy) cells |
+| $K_C$       | Carrying capacity of tumour (Cancerous) cells |
+| $\beta_H$   | Infection rate of normal (Healthy) cells |
+| $\beta_C$   | Infection rate of tumour (Cancerous) cells |
+| $\lambda_H$ | Lysing rate of normal (Healthy) cells |
+| $\lambda_C$ | Lysing rate of tumour (Cancerous) cells |
+| $b_{H}$     | Burst size of normal (Healthy) cells |
+| $b_C$       | Burst size of tumour (Cancerous) cells |
+| $r_H$       | Per-capita growth rate of normal (Healthy) cells |
+| $r_C$       | Per-capita growth rate of tumour (Cancerous) cells |
+| $\omega$    | Rate of neutralisation by innate immune response |
+| $v$         | Virions |
+
+## Formulas
+
+\begin{equation} \label{eq:dHs} 
+  \frac{dH_{S}}{dt} = r_H H_S (1 - \frac{(H_S + H_I)}{K_H}) - H_S \beta_H v
+\end{equation}
+
+\begin{equation} \label{eq:dCs} 
+  \frac{dC_S}{dt} = r_C C_S (1 - \frac{(C_S + C_I)}{K_C}) - C_S \beta_C v
+\end{equation}
+
+\begin{equation} \label{eq:dCI} 
+  \frac{dC_I}{dt} = \beta_C C_S v - \lambda_C C_I
+\end{equation}
+
+\begin{equation} \label{eq:dHI} 
+  \frac{dH_I}{dt} = \beta_H H_S v - \lambda_H H_I
+\end{equation}
+
+\begin{equation} \label{eq:dv} 
+  \frac{dv}{dt} = b_C \lambda_C C_I + b_H b_C \lambda_H H_I - \beta_H H_S v - \beta_C C_S - \omega v
+\end{equation}
+
+Referentie naar eq1: \eqref{eq:dHs}
+
+## Parameter definitions
+
+
+
 # Results
 
 # Discussion
