@@ -2,11 +2,18 @@
 title: "Remodeling oncolytic virotherapy"
 author: "Orfeas Gkourlias & Dennis Wiersma"
 date: '2022-06-17'
+
 output: 
   pdf_document: 
-    highlight: kate
     toc: yes
+    highlight: kate
     number_sections: yes
+    citation_package: biblatex
+    
+    includes: 
+      before_body: latex/test.tex
+      
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +24,9 @@ source("code/main.R")
 \newpage
 
 # Abstract
+[@L_2019_github]
 
+\newpage
 # Introduction
 Viruses and cancer are both considered to be very destructive and harmful. But what if one of these could be used to combat the other? Viruses infect cells. These cells do not have to be healthy ones. By introduction of specific viruses into tumor affected tissue, the tumor may be repressed and eventually entirely eleminated. The field known as oncolytic virotherapy is still developing. There's still many uncertainties, but also possibilities. This paper aims to reproduce and possibly revise another paper published in the journal of theoretical biology. The paper demonstrated exstensive modelling relevant to exploring the effects of varying amounts of normal and tumor cells.
 
@@ -25,6 +34,7 @@ Oncolytic virotherapy has a lot of potential. With that comes many things to con
 
 In any case, the immune response is of great importance. The immune response may vary from person to person and tissue to tissue. Whether the person had been exposed to a virus before, or the immune system engages an unknown pathogen mediates different responses too. It's important to be aware of those factors in treatment. Time is of the essence in all instances of virotherapy. It usually takes 5 to 7 days for the immune response to completely halt production rate of the virus. As mentioned earlier, it's important that the treatment, in the case of the lysation approach, destroys all of the tumor cells. Having to accomplish this in the time frame of only 5 to 7 days is quite a feat. This swift approach is referred to as one shot virotherapy. This is why it's so important for the intial values to be right, further solidying the significance of researching and being absolutely certain about the relevant mathematical models, due to there only being one shot at the initial treatment with a specific virus.
 
+\newpage
 # Methods
 
 ## Variable explanations
@@ -77,8 +87,14 @@ Referentie naar eq1: \eqref{eq:dHs}
 
 ## Parameter definitions
 
+\newpage
 # Results
 
+\newpage
 # Discussion
 
+\newpage
 # Conclusion
+
+\newpage
+# Bibliography 
