@@ -24,7 +24,6 @@ source("code/main.R")
 \newpage
 
 # Abstract
-[@L_2019_github]
 
 \newpage
 # Introduction
