@@ -11,6 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("code/main.R")
 ```
 
 \newpage
@@ -75,8 +76,6 @@ In any case, the immune response is of great importance. The immune response may
 Referentie naar eq1: \eqref{eq:dHs}
 
 ## Parameter definitions
-
-
 
 # Results
 
