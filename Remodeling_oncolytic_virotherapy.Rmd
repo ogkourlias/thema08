@@ -39,48 +39,48 @@ In any case, the immune response is of great importance. The immune response may
 \subsection{Variables}
 
 \begin{table}[h]
-\begin{tabular}{ |l||l|l|l|  }
+\begin{tabular}{ |l||l|l|  }
   \hline
-  \textbf{Variable} & \textbf{Explanation} \\
+  \textbf{Variable} & \textbf{Explanation} & \textbf{Unit} \\
   \hline
   \hline
-  $t$ & Time \\
+  $t$ & Time & hr\textsuperscript{-1} \\
   \hline
-  $H$ & Normal (Healthy) cell type \\
+  $H$ & Normal (Healthy) cell type & - \\
   \hline
-  $C$ & Tumour (Cancerous) cell type \\
+  $C$ & Tumour (Cancerous) cell type & - \\
   \hline
-  $H_S$ & Normal cell that is susceptible \\
+  $H_S$ & Normal cell that is susceptible & - \\
   \hline
-  $H_I$ & Normal cell that is infected \\
+  $H_I$ & Normal cell that is infected & - \\
   \hline
-  $C_S$ & Tumour cell that is susceptible \\
+  $C_S$ & Tumour cell that is susceptible & - \\
   \hline
-  $C_I$ & Tumour cell that is infected \\
+  $C_I$ & Tumour cell that is infected & - \\
   \hline
-  $K_H$ & Carrying capacity of normal cells \\
+  $K_H$ & Carrying capacity of normal cells & cells \\
   \hline
-  $K_C$ & Carrying capacity of tumour cells \\
+  $K_C$ & Carrying capacity of tumour cells & cells \\
   \hline
-  $\beta_H$ & Infection rate of normal cells \\
+  $\beta_H$ & Infection rate of normal cells & viruses cell\textsuperscript{-1} hr\textsuperscript{-1}\\
   \hline
-  $\beta_C$ & Infection rate of tumour cells \\
+  $\beta_C$ & Infection rate of tumour cells & viruses cell\textsuperscript{-1} hr\textsuperscript{-1} \\
   \hline
-  $\lambda_H$ & Lysing rate of normal cells \\
+  $\lambda_H$ & Lysing rate of normal cells & cell\textsuperscript{-1} hr\textsuperscript{-1} \\
   \hline
-  $\lambda_C$ & Lysing rate of tumour cells \\
+  $\lambda_C$ & Lysing rate of tumour cells & cell\textsuperscript{-1} hr\textsuperscript{-1}\\
   \hline
-  $b_{H}$ & Burst size of normal cells \\
+  $b_{H}$ & Burst size of normal cells & - \\
   \hline
-  $b_C$ & Burst size of tumour cells \\
+  $b_C$ & Burst size of tumour cells & - \\
   \hline
-  $r_H$ & Per-capita growth rate of normal cells \\
+  $r_H$ & Per-capita growth rate of normal cells & hr\textsuperscript{-1}\\
   \hline
-  $r_C$ & Per-capita growth rate of tumour cells \\
+  $r_C$ & Per-capita growth rate of tumour cells & hr\textsuperscript{-1}\\
   \hline
-  $\omega$ & Rate of neutralisation by innate immune response \\
+  $\omega$ & Rate of neutralisation by innate immune response & virus\textsuperscript{-1} hr\textsuperscript{-1}\\
   \hline
-  $v$ & Virions \\
+  $v$ & Virions & - \\
   \hline
 \end{tabular}
 \caption{All variables and their respective explanations}
