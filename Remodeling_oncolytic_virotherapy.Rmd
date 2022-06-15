@@ -7,7 +7,7 @@ output:
   pdf_document: 
     highlight: kate
     number_sections: yes
-    citation_package: biblatex
+    citation_package: natbib
     
     includes: 
       in_header: latex/preamble.tex
@@ -34,7 +34,8 @@ In any case, the immune response is of great importance. The immune response may
 
 \section{Methods}
 
-[@OKAMOTO2014166]
+Since the ambition of this paper is to reproduce the results found in @OKAMOTO2014166, our objectives are the same as described in that article:  
+"We model the dynamics of an oncolytic virus within the context of its interactions with the populations of tumor cells and normal cells. We integrate key ecological processes, such as the growth of normal cells and tumor cells and an adaptive immune response, with an explicit treatment of how viruses differentially exploit the two cell types."
 
 \subsection{Variables}
 
@@ -87,36 +88,47 @@ In any case, the immune response is of great importance. The immune response may
 \label{table:vars}
 \end{table}
 
-Reference to table one: \ref{table:vars}
 
-\subsection{Formulas}
+\subsection{Equations}
+This model is a direct replica of the one presented in @OKAMOTO2014166, since that is the process we are trying to replicate. The model seeks to incorporate the effects of an oncolytic virus on the growth and maintenance of normal cells along with it's effects on tumour cells, thereby extending the work of @Wu:2004wn which only aims to formulate the latter: characterising an oncolytic virus infecting a population of tumour cells. @Wu:2004wn is itself an extension of previous models of virus-host interactions, further references to which van be found in @OKAMOTO2014166.
+
+We start out with two separate cell populations both of which are divided into two sub populations: tumour cells ($C$) and normal cells ($H$), each having a susceptible ($C_S$ & $H_S$) and an infected ($C_I$ & $H_I$) sub population. All other parameter definitions can be found in table \ref{table:vars}
 
 \subsubsection{Normal susceptible cell count}
+This first differential equation models the change in the number of normal cells that are still susceptible to an infection by virus particles. 
+
 \begin{equation} \label{eq:dHs} 
   \frac{dH_{S}}{dt} = r_H H_S (1 - \frac{(H_S + H_I)}{K_H}) - H_S \beta_H v
 \end{equation}
 
 \subsubsection{Tumour susceptible cell count}
+This second differential equation is very similar to equation \eqref{eq:dHs}, since it represents the same change in susceptible cells except it models tumour cells instead of normal ones.
+
 \begin{equation} \label{eq:dCs} 
   \frac{dC_S}{dt} = r_C C_S (1 - \frac{(C_S + C_I)}{K_C}) - C_S \beta_C v
 \end{equation}
 
 \subsubsection{Normal infected cell count}
+This third differential equation is again similar to equation \eqref{eq:dHs} in that it models normal cells, but in this case we're looking at the change in infected cells instead of susceptible ones.
+
 \begin{equation} \label{eq:dHI} 
   \frac{dH_I}{dt} = \beta_H H_S v - \lambda_H H_I
 \end{equation}
 
 \subsubsection{Tumour infected cell count}
+This fourth differential equation relates to equation \eqref{eq:dHI} in the same way as equation \eqref{eq:dCs} relates to equation \eqref{eq:dHs}: This equation again models infected cells, but regards tumour cells instead of the normal cells found in equation \eqref{eq:dHI}
+
 \begin{equation} \label{eq:dCI} 
   \frac{dC_I}{dt} = \beta_C C_S v - \lambda_C C_I
 \end{equation}
 
 \subsubsection{Virion count}
+This fifth and final differential equation is a bit different from all of the other ones that came before, since it models virions instead of cell populations. 
+
 \begin{equation} \label{eq:dv} 
   \frac{dv}{dt} = b_C \lambda_C C_I + b_H b_C \lambda_H H_I - \beta_H H_S v - \beta_C C_S - \omega v
 \end{equation}
 
-Referentie naar eq1: \eqref{eq:dHs}
 
 \newpage
 
