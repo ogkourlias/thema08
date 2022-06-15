@@ -97,4 +97,3 @@ out2 <- ode(y = state, times = times, func = vir, parms = parms_hsv)
 out3 <- ode(y = state, times = times, func = vir, parms = parms_vsv)
 
 out1[,2:6] <- log10(out1[,2:6] + 1)
-plot(out1)
