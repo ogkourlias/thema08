@@ -129,6 +129,24 @@ This fifth and final differential equation is a bit different from all of the ot
   \frac{dv}{dt} = b_C \lambda_C C_I + b_H b_C \lambda_H H_I - \beta_H H_S v - \beta_C C_S - \omega v
 \end{equation}
 
+\subsection{Equation realisation}
+The results of the differential equations and their plots are made by an R program, 
+utilizing the desolve and ggplot packages.
+By defining the parameters, variables and equations, analysis of results
+was made convenient. Changing and observing the effect of certain parameter 
+values were easily done this way. The equations remained unchanged, stored as functions.
+
+The goal in this process was to simulate the effects three viruses 
+in particular would have on tumour affected tissue. 
+To further determine the most important elements of the equations, 
+different values were changed accordingly.
+
+
+Starting out with the equation execution required
+distinction between parameters and state variables. 
+The state variables are universal, and not specific to any virus.
+They are rather bodily constants, which were exposed to the effects of the diffrent viruses.
+The amount of virus particles introduced to a system is a state variable, and remains the same for all virus
 
 \newpage
 
