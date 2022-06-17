@@ -129,6 +129,41 @@ This fifth and final differential equation is a bit different from all of the ot
   \frac{dv}{dt} = b_C \lambda_C C_I + b_H b_C \lambda_H H_I - \beta_H H_S v - \beta_C C_S - \omega v
 \end{equation}
 
+\subsection{Equation realisation}
+The results of the differential equations and their plots are made by an R program, 
+utilizing the desolve and ggplot packages.
+By defining the parameters, variables and equations, analysis of results
+was made convenient. Changing and observing the effect of certain parameter 
+values were easily done this way. The equations remained unchanged, stored as functions.
+
+The goal in this process was to simulate the effects the three viruses 
+in particular would have on tumour affected tissue. 
+To further determine the most important elements of the equations, 
+different values were changed according to what would logically be most 
+influential, to confirm their importance. The specific values will be mentioned 
+when discussing the equations themselves.
+
+
+Starting out with the equation execution required
+distinction between parameters and state variables. 
+The state variables are universal, and not specific to any virus.
+They are rather bodily constants, which were exposed to the effects of the different viruses.
+The amount of virus particles introduced to a system is a state variable, and 
+initially remains the same for all viruses when t = 0. it is however worth noting
+that the amount of free virus particles are ever changing, and don't 
+just reach 0 after they have infected cells. The virus replication rate differs.
+It is because of the complex interactions such as these that the virus types are important.
+There are 4 additional variables to the state variable mentioned above. These
+account for the susceptible and infected cells, both healthy and cancerous.
+
+By letting desolve run the equations over 168 hours, three different datasets 
+were created. One for every type of virus. By 10log transforming the data,
+comparing the differing effects was now possible. By plotting the three datsets,
+using ggplot, there seemed to be significant difference between the virus effects.
+To deduce what conttributed to the different effects, the virus specific 
+variables were compared next to the plotted results.
+
+After simply observing and making a rough estimation, it seemed that 
 
 \newpage
 

@@ -18,9 +18,9 @@ parms_adeno <- c(
   betaC = 5.25*10^-12 # Uptake/encounter/infection rate of tumor cells. Unit: viruses cell^−1hr^−1
 )
 
-parms_adeno["bH"] = parms_adeno["bC"] * 0.1 # Burst size of normal (Healthy) cells. Unit : -
-parms_adeno["lambdaH"] = parms_adeno["lambdaC"] * 0.1 # Lysing rate of normal (Healthy) cells
-parms_adeno["betaH"] = parms_adeno["betaC"] * 0.0025 #(4*10^4) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
+parms_adeno["bH"] = (parms_adeno["bC"] * 0.1) # Burst size of normal (Healthy) cells. Unit : -
+parms_adeno["lambdaH"] = (parms_adeno["lambdaC"] * 0.1) # Lysing rate of normal (Healthy) cells
+parms_adeno["betaH"] = (parms_adeno["betaC"] * 0.0025) #(4*10^4) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 
 # Parameterss & state will need to be defined first.
 parms_hsv <- c(
@@ -39,7 +39,7 @@ parms_hsv <- c(
 
 parms_hsv["bH"] = parms_hsv["bC"] * 0.1 # Burst size of normal (Healthy) cells. Unit : -
 parms_hsv["lambdaH"] = parms_hsv["lambdaC"] * 0.1 # Lysing rate of normal (Healthy) cells
-parms_hsv["betaH"] = parms_hsv["betaC"] * (4*10^4) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
+parms_hsv["betaH"] = parms_hsv["betaC"] * 0.0025 # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 
 
 # Parameterss & state will need to be defined first.
@@ -59,7 +59,7 @@ parms_vsv <- c(
 
 parms_vsv["bH"] = parms_vsv["bC"] * 0.1 # Burst size of normal (Healthy) cells. Unit : -
 parms_vsv["lambdaH"] = parms_vsv["lambdaC"] * 0.1 # Lysing rate of normal (Healthy) cells
-parms_vsv["betaH"] = parms_vsv["betaC"] * (4*10^4) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
+parms_vsv["betaH"] = parms_vsv["betaC"] * 0.0025 # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 
 # Defining the states
 state <- c(
@@ -71,26 +71,41 @@ state <- c(
   
 )
 
+# Defining the 7 days in amount of hours.
+times <- seq(0, 168)
+
 # Defining the functions
 vir <- function(t, state, parameters){
   with(as.list(c(state, parameters)),{
-    
+    # Function governing healthy susceptible cells.
     dHs <- rH * Hs * (1 - ( (Hs+Hi)/KH ) ) - Hs * betaH * v0
     
+    # Function governing cancerous susceptible cells.
     dCs <- rC * Cs * (1 - ( (Cs + Ci) / KC) ) - Cs * betaC * v0
     
+    # Function governing cancerous infected cells.
     dCi <- betaC * Cs * v0 - lambdaC * Ci
     
+    # Function governing healthy infected cells.
     dHi <- betaH * Hs * v0 - lambdaH * Hi
     
+    # Function governing amount of virus particles.
     dv <- betaC * lambdaC * Ci + bH * bC *lambdaH * Hi - betaH * Hs * v0 - betaC * Cs * v0 - omega * v0
-    #print(dHs)
+    
     return(list(c(dCi, dHi, dv, dCs, dHs)))
   }
   )
 }
 
-times <- seq(0, 168)
+# Defining the desolve outputs to their respective variables.
+adeno_res<- ode(y = state, times = times, func = vir, parms = parms_adeno)
+hsv_res <- ode(y = state, times = times, func = vir, parms = parms_hsv)
+vsv_res <- ode(y = state, times = times, func = vir, parms = parms_vsv)
+
+# Applying post processing Log10 transformations for all values but time.
+adeno_res[,2:6] <- log10(adeno_res[,2:6] + 1)
+hsv_res[,2:6] <- log10(hsv_res[,2:6] + 1)
+vsv_res[,2:6] <- log10(vsv_res[,2:6] + 1)times <- seq(0, 168)
 
 out1 <- ode(y = state, times = times, func = vir, parms = parms_adeno)
 out2 <- ode(y = state, times = times, func = vir, parms = parms_hsv)
