@@ -162,18 +162,44 @@ By letting desolve run the equations over 168 hours, three different datasets
 were created. One for every type of virus. By 10log transforming the data,
 comparing the differing effects was now possible. By plotting the three datsets,
 using ggplot, there seemed to be significant difference between the virus effects.
-To deduce what conttributed to the different effects, the virus specific 
+To deduce what contributed to the different effects, the virus specific 
 variables were compared next to the plotted results.
 
-After simply observing and making a rough estimation, it seemed that 
+After simply observing the plot lines and making a rough estimation, 
+it seemed that the main contributing differentiators are related to cell death
+and cell infcetion specificity.
+Lysing and burst rates being the main culpritswhen it comes to cell death
+The infection rate of healthy cells, betaH, 
+being very relevant to specicifity. To further analyse this, the
+values were changed from the original values, which can be found in the sections above.
 
+To reaffirm the previous suspicion, new plots were made with both lowered and 
+increased values. Analysis of these findings are under the results section.
 \newpage
 
 \section{Results}
+By finishing the simulations and plotting the results, multiple things are clear.
+With the default values, there seems to be a clear indication that competition
+is important. It's important that theres relative balance between infection rates of 
+healthy and tumour cells. The healthy cells can be slightly slower when it come to
+being infected, but not significantly.
+
+As can be seen in the plot above, when a virus only affects the cancerous cells,
+the results differ significantly. Further establishing that the competition 
+is of great importance to the results. The balancing of healthy and cancerous
+cells being absent affects Ci and Cs. The Ci increases at first, as usual. But
+without healthy cells being infected too, it seems that Ci and V drop off swiftly.
+This means that Cs increases accordingly, which means cancerous cells grow faster
+than they are being eliminated. With V0 hitting 0, the treatment comes to a premature
+stop. The immune system most likely being its stongest then. 
+
+In addition to observing the specificity, the virus destructivity was also adjsuted
+and plotted.
 
 \newpage
 
 \section{Discussion}
+The 
 
 \newpage
 
