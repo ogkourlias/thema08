@@ -106,5 +106,3 @@ vsv_res <- ode(y = state, times = times, func = vir, parms = parms_vsv)
 adeno_res[,2:6] <- log10(adeno_res[,2:6] + 1)
 hsv_res[,2:6] <- log10(hsv_res[,2:6] + 1)
 vsv_res[,2:6] <- log10(vsv_res[,2:6] + 1)
-
-plot(adeno_res)
