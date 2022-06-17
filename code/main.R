@@ -144,19 +144,3 @@ ggplot(out1df, aes(x = time, y = Cs)) +
                         #breaks = c(9.0, 9.5, 10.0, 10.5, 11.0))
   ) +
   labs(x = "Time")
-
-
-  
-  
-  
-ggplot(climate, aes(Month, Precip)) +
-  geom_line() + 
-  geom_line(aes(y = (a + ((Temp - mean(TEMP))/sd(TEMP)) * s) ), color = "red") +
-  scale_y_continuous("Precipitation", 
-                      limits=ylim.prim,
-                      sec.axis = sec_axis(~ (. - a) / s * sd(TEMP) + mean(TEMP), name = "Temperature"),) +
-  scale_x_continuous("Month", breaks = 1:12) +
-  theme(axis.title.y.right = element_text(colour = "red"))
-  
-  
-  
