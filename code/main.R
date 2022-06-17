@@ -1,3 +1,4 @@
+
 # Remodeling oncolytic virotherapy, R code.
 # Loading prerequisites
 library(deSolve)
@@ -105,4 +106,42 @@ vsv_res <- ode(y = state, times = times, func = vir, parms = parms_vsv)
 # Applying post processing Log10 transformations for all values but time.
 adeno_res[,2:6] <- log10(adeno_res[,2:6] + 1)
 hsv_res[,2:6] <- log10(hsv_res[,2:6] + 1)
-vsv_res[,2:6] <- log10(vsv_res[,2:6] + 1)
+vsv_res[,2:6] <- log10(vsv_res[,2:6] + 1)times <- seq(0, 168)
+
+out1 <- ode(y = state, times = times, func = vir, parms = parms_adeno)
+out2 <- ode(y = state, times = times, func = vir, parms = parms_hsv)
+out3 <- ode(y = state, times = times, func = vir, parms = parms_vsv)
+
+out1[,2:6] <- log10(out1[,2:6] + 1)
+
+
+library("ggplot2")
+
+out1df <- data.frame(out1)
+
+ylim.prim <- c(0, 10)
+ylim.sec <- c(9, 11)
+
+V0.temp <- out1df$v0
+
+fit = lm(b ~ . + 0,
+         tibble::tribble(
+           ~a, ~s, ~b,
+           1, (ylim.sec[1] - mean(V0.temp)) / sd(V0.temp), ylim.prim[1],
+           1, (ylim.sec[2] - mean(V0.temp)) / sd(V0.temp), ylim.prim[2]))
+
+a <- fit$coefficients["a"]
+s <- fit$coefficients["s"]
+
+ggplot(out1df, aes(x = time, y = Cs)) +
+  geom_line() +
+  geom_line(aes(y = (a + ((v0 - mean(V0.temp)) / sd(V0.temp)) * s ))) +
+  scale_y_continuous(
+    name = "Cs", 
+    limits = ylim.prim,
+    #breaks = c(0, 2, 4, 6, 8, 10),
+    sec.axis = sec_axis(name = "v0", 
+                        trans = ~ (. - a) / s * sd(V0.temp) + mean(V0.temp))
+    #breaks = c(9.0, 9.5, 10.0, 10.5, 11.0))
+  ) +
+  labs(x = "Time")
