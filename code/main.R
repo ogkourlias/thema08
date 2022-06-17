@@ -84,7 +84,7 @@ vir <- function(t, state, parameters){
     dHi <- betaH * Hs * v0 - lambdaH * Hi
     
     dv <- betaC * lambdaC * Ci + bH * bC *lambdaH * Hi - betaH * Hs * v0 - betaC * Cs * v0 - omega * v0
-    print(dHs)
+    #print(dHs)
     return(list(c(dCi, dHi, dv, dCs, dHs)))
   }
   )
@@ -97,3 +97,51 @@ out2 <- ode(y = state, times = times, func = vir, parms = parms_hsv)
 out3 <- ode(y = state, times = times, func = vir, parms = parms_vsv)
 
 out1[,2:6] <- log10(out1[,2:6] + 1)
+
+
+library("ggplot2")
+
+out1df <- data.frame(out1)
+
+ylim.prim <- c(0, 10)
+ylim.sec <- c(9, 11)
+
+V0.temp <- out1df$v0
+
+fit = lm(b ~ . + 0,
+         tibble::tribble(
+           ~a, ~s, ~b,
+           1, (ylim.sec[1] - mean(V0.temp)) / sd(V0.temp), ylim.prim[1],
+           1, (ylim.sec[2] - mean(V0.temp)) / sd(V0.temp), ylim.prim[2]))
+
+a <- fit$coefficients["a"]
+s <- fit$coefficients["s"]
+
+ggplot(out1df, aes(x = time, y = Cs)) +
+  geom_line() +
+  geom_line(aes(y = (a + ((v0 - mean(V0.temp)) / sd(V0.temp)) * s ))) +
+  scale_y_continuous(
+    name = "Cs", 
+    limits = ylim.prim,
+    #breaks = c(0, 2, 4, 6, 8, 10),
+    sec.axis = sec_axis(name = "v0", 
+                        trans = ~ (. - a) / s * sd(V0.temp) + mean(V0.temp))
+                        #breaks = c(9.0, 9.5, 10.0, 10.5, 11.0))
+  ) +
+  labs(x = "Time")
+
+
+  
+  
+  
+ggplot(climate, aes(Month, Precip)) +
+  geom_line() + 
+  geom_line(aes(y = (a + ((Temp - mean(TEMP))/sd(TEMP)) * s) ), color = "red") +
+  scale_y_continuous("Precipitation", 
+                      limits=ylim.prim,
+                      sec.axis = sec_axis(~ (. - a) / s * sd(TEMP) + mean(TEMP), name = "Temperature"),) +
+  scale_x_continuous("Month", breaks = 1:12) +
+  theme(axis.title.y.right = element_text(colour = "red"))
+  
+  
+  
