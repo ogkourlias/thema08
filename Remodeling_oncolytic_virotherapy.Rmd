@@ -18,7 +18,7 @@ bibliography: references.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#source("code/main.R")
+source("code/main.R")
 ```
 
 \newpage
@@ -128,6 +128,8 @@ This fifth and final differential equation is a bit different from all of the ot
 \begin{equation} \label{eq:dv} 
   \frac{dv}{dt} = b_C \lambda_C C_I + b_H b_C \lambda_H H_I - \beta_H H_S v - \beta_C C_S - \omega v
 \end{equation}
+
+\newpage
 
 \subsection{Equation realisation}
 The results of the differential equations and their plots are made by an R program, 
