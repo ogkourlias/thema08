@@ -216,7 +216,7 @@ influental parts have yet been taken into consideration. References were briefly
 made to the immune response and its relevance to ending the treatment in 7 days.
 The immunology aspect of this paper did not go into thorough detail in
 descrbing the underlying mechanisms which facilitate virus elimination. It is therefore
-entirely possible that something coudl've been missed in this consideration. But
+entirely possible that something would've been missed in this consideration. But
 the immunology aspects this paper is based on come from reliable sources, such as
 Oxford university press. Nevertheless, it is probably useful to dive into the
 immunological relevance further in another paper.
@@ -239,10 +239,17 @@ the specificity of future papers may lead to actual trials of the treatments.
 \section{Conclusion}
 There's several conclusions which can be made on the basis of the models.
 As stated in the prior paper this one is based on, the compettivity is once again
-reinforced as an important elemenet in virotherapy. The absence of such a mechanism
-surely inhibits the ability for the virus to help in treatment. Many factors go into
-ensuring this competition between cells, viruses and immune system. Most of the 
-important variables being controllable, like the specificity of the virus.what
+reinforced as an important factor in virotherapy. The absence of such a mechanism
+surely inhibits the ability for the virus to help in treatment, as shown
+by the plots in results. Many factors go intoensuring this competition between 
+cells, viruses and immune system. Most of the important variables being 
+controllable, like the specificity of the virus.
+
+The destructive capability has also been observed. The models indicate that the
+rate at which the virus reproduces, and lysates, is important. Changing this value
+makes it so that all the parameters change their in their slopes. This means
+that once again, the virus that is selected must be considered. Since viruses
+tend to vary in their replication and lysation rates.
 
 \newpage
 
