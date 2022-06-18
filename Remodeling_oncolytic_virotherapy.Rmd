@@ -194,7 +194,15 @@ than they are being eliminated. With V0 hitting 0, the treatment comes to a prem
 stop. The immune system most likely being its stongest then. 
 
 In addition to observing the specificity, the virus destructivity was also adjsuted
-and plotted. This resulted in an
+and plotted. Gradual increases seem to also rapidly decrease the Ci and Hi.
+These two seem to decrease significantly slower when using the default values.
+As the gradual increases kept stacking up, it became clear that the Cs and Hs
+also hit the 0 point earlier. This makes sense, because cells get lysed
+increasingly faster. It is also worth noting that V0 seems to decrease very slowly.
+Something that is different when observing the default values. This woud also
+explain why infections seem to happen quicker, because of the burst size being
+increased. Resulting in more virus particles in the system, at a faster rate.
+
 
 \newpage
 
@@ -229,6 +237,12 @@ the specificity of future papers may lead to actual trials of the treatments.
 \newpage
 
 \section{Conclusion}
+There's several conclusions which can be made on the basis of the models.
+As stated in the prior paper this one is based on, the compettivity is once again
+reinforced as an important elemenet in virotherapy. The absence of such a mechanism
+surely inhibits the ability for the virus to help in treatment. Many factors go into
+ensuring this competition between cells, viruses and immune system. Most of the 
+important variables being controllable, like the specificity of the virus.what
 
 \newpage
 
