@@ -131,7 +131,7 @@ This fifth and final differential equation is a bit different from all of the ot
 
 \newpage
 
-\subsection{Equation realisation}
+\subsection{Equation modeling}
 The results of the differential equations and their plots are made by an R program, 
 utilizing the desolve and ggplot packages.
 By defining the parameters, variables and equations, analysis of results
@@ -194,12 +194,37 @@ than they are being eliminated. With V0 hitting 0, the treatment comes to a prem
 stop. The immune system most likely being its stongest then. 
 
 In addition to observing the specificity, the virus destructivity was also adjsuted
-and plotted.
+and plotted. This resulted in an
 
 \newpage
 
 \section{Discussion}
-The 
+The conclusions and dicoveries made in this paper will surely be helpful
+for future studies. But there could be some points of discussion on a number of topics.
+The first ones relating to the accuracy of the variables involved. While this paper
+aimed to simulate the possbilties to the best of it's abilities, the process remains
+very complex, with a lot of parts involved. The point being that maybe not all 
+influental parts have yet been taken into consideration. References were briefly
+made to the immune response and its relevance to ending the treatment in 7 days.
+The immunology aspect of this paper did not go into thorough detail in
+descrbing the underlying mechanisms which facilitate virus elimination. It is therefore
+entirely possible that something coudl've been missed in this consideration. But
+the immunology aspects this paper is based on come from reliable sources, such as
+Oxford university press. Nevertheless, it is probably useful to dive into the
+immunological relevance further in another paper.
+
+While on the topic of the complexity, there's more to be remarked on this subject.
+Not all forms of cancer will respond in the same way to the viruses discussed.
+This paper lays a foundation, from which more specific forms of cancer may
+be modeled too. The same goes for the viruses mentioned. There are plethera of
+viruses out there, which would surely offer a world of opportunity when it comes
+to modeling of new responses.
+
+The critiques mentioned above are worthy of being explored further. This doesn't
+trivialize the fact that the models created here are important. The results are
+very promising in finding new ways to treat cancer. The basis of the models
+are sound and could surely be used for future research. As mentioned before,
+the specificity of future papers may lead to actual trials of the treatments.
 
 \newpage
 
