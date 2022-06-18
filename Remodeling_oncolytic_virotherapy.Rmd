@@ -184,6 +184,12 @@ is important. It's important that theres relative balance between infection rate
 healthy and tumour cells. The healthy cells can be slightly slower when it come to
 being infected, but not significantly.
 
+```{r, echo=FALSE}
+grid.arrange(spec_adeno, reg_full_adeno, spec_hsv, reg_full_hsv, 
+             spec_vsv, reg_full_vsv, ncol = 2, nrow = 3)
+```
+
+
 As can be seen in the plot above, when a virus only affects the cancerous cells,
 the results differ significantly. Further establishing that the competition 
 is of great importance to the results. The balancing of healthy and cancerous
@@ -191,10 +197,12 @@ cells being absent affects Ci and Cs. The Ci increases at first, as usual. But
 without healthy cells being infected too, it seems that Ci and V drop off swiftly.
 This means that Cs increases accordingly, which means cancerous cells grow faster
 than they are being eliminated. With V0 hitting 0, the treatment comes to a premature
-stop. The immune system most likely being its stongest then. 
+stop. The immune system most likely being its stongest then.
+
+\newpage
 
 In addition to observing the specificity, the virus destructivity was also adjsuted
-and plotted. Gradual increases seem to also rapidly decrease the Ci and Hi.
+and plotted below. Gradual increases seem to also rapidly decrease the Ci and Hi.
 These two seem to decrease significantly slower when using the default values.
 As the gradual increases kept stacking up, it became clear that the Cs and Hs
 also hit the 0 point earlier. This makes sense, because cells get lysed
@@ -203,6 +211,10 @@ Something that is different when observing the default values. This woud also
 explain why infections seem to happen quicker, because of the burst size being
 increased. Resulting in more virus particles in the system, at a faster rate.
 
+```{r, echo=FALSE}
+grid.arrange(des_adeno, reg_full_adeno, des_hsv, reg_full_hsv, 
+             des_vsv, reg_full_vsv, ncol = 2, nrow = 3)
+```
 
 \newpage
 

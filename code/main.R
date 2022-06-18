@@ -2,7 +2,8 @@
 # Remodeling oncolytic virotherapy, R code.
 # Loading prerequisites
 library(deSolve)
-library("ggplot2")
+library(ggplot2)
+library(gridExtra)
 
 # Parameters & state will need to be defined first.
 # Defining parameters that stay the same
@@ -119,7 +120,7 @@ hsv_res_df <- data.frame(hsv_res)
 vsv_res_df <- data.frame(vsv_res)
 
 ylim.prim <- c(0, 10)
-ylim.sec <- c(8, 14)
+ylim.sec <- c(8, 16)
 
 # Adeno virus plotting
 
@@ -134,7 +135,7 @@ fit = lm(b ~ . + 0,
 a <- fit$coefficients["a"]
 s <- fit$coefficients["s"]
 
-ggplot(adeno_res_df, aes(x = time, y = Cs)) +
+reg_adeno <- ggplot(adeno_res_df, aes(x = time, y = Cs)) +
   geom_line(aes(colour = "CS")) +
   geom_line(aes(y = (a + ((v0 - mean(V0.temp)) / sd(V0.temp)) * s ), colour = "V0")) +
   scale_y_continuous(
@@ -159,7 +160,7 @@ fit = lm(b ~ . + 0,
 a <- fit$coefficients["a"]
 s <- fit$coefficients["s"]
 
-ggplot(hsv_res_df, aes(x = time, y = Cs)) +
+reg_hsv <- ggplot(hsv_res_df, aes(x = time, y = Cs)) +
   geom_line(aes(colour = "CS")) +
   geom_line(aes(y = (a + ((v0 - mean(V0.temp)) / sd(V0.temp)) * s ), colour = "V0")) +
   scale_y_continuous(
@@ -184,7 +185,7 @@ fit = lm(b ~ . + 0,
 a <- fit$coefficients["a"]
 s <- fit$coefficients["s"]
 
-ggplot(vsv_res_df, aes(x = time, y = Cs)) +
+reg_vsv <- ggplot(vsv_res_df, aes(x = time, y = Cs)) +
   geom_line(aes(colour = "CS")) +
   geom_line(aes(y = (a + ((v0 - mean(V0.temp)) / sd(V0.temp)) * s ), colour = "V0")) +
   scale_y_continuous(
@@ -197,10 +198,29 @@ ggplot(vsv_res_df, aes(x = time, y = Cs)) +
   ) +
   labs(x = "Time")
 
-# Extra test plotjes, voor vergelijking zo
-plot(adeno_res)
-plot(hsv_res)
-plot(vsv_res)
+reg_full_adeno <- ggplot(data = adeno_res_df, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
+
+reg_full_hsv <- ggplot(data = hsv_res_df, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
+
+reg_full_vsv <- ggplot(data = vsv_res_df, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
 
 # Increasing the burst and lysing rates of normal cells
 adeno_parms["bH"] = (adeno_parms["bC"] * 0.3) # Burst size of normal (Healthy) cells. Unit : -
@@ -220,10 +240,39 @@ adeno_res_2[,2:6] <- log10(adeno_res_2[,2:6] + 1)
 hsv_res_2[,2:6] <- log10(hsv_res_2[,2:6] + 1)
 vsv_res_2[,2:6] <- log10(vsv_res_2[,2:6] + 1)
 
-# Extra test plotjes, voor vergelijking zo
-plot(adeno_res_2)
-plot(hsv_res_2)
-plot(vsv_res_2)
+# Making dataframes for plotting
+adeno_res_df_2 <- data.frame(adeno_res_2)
+hsv_res_df_2 <- data.frame(hsv_res_2)
+vsv_res_df_2 <- data.frame(vsv_res_2)
+
+# Plotting
+des_adeno <- ggplot(data = adeno_res_df_2, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
+des_hsv <- ggplot(data = vsv_res_df_2, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
+des_vsv <- ggplot(data = hsv_res_df_2, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = Hi, color = "Hi")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  geom_line(aes(y = Hs, color = "Hs")) +
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
 
 # Increasing the burst and lysing rates of normal cells
 adeno_parms["bH"] = (adeno_parms["bC"] * 0.1) # Burst size of normal (Healthy) cells. Unit : -
@@ -246,7 +295,30 @@ adeno_res_3[,2:6] <- log10(adeno_res_3[,2:6] + 1)
 hsv_res_3[,2:6] <- log10(hsv_res_3[,2:6] + 1)
 vsv_res_3[,2:6] <- log10(vsv_res_3[,2:6] + 1)
 
-# Extra test plotjes, voor vergelijking zo
-plot(adeno_res_3)
-plot(hsv_res_3)
-plot(vsv_res_3)
+# Making dataframes for plotting
+adeno_res_df_3 <- data.frame(adeno_res_3)
+hsv_res_df_3 <- data.frame(hsv_res_3)
+vsv_res_df_3 <- data.frame(vsv_res_3)
+
+# Plotting
+spec_adeno <- ggplot(data = adeno_res_df_3, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  scale_color_manual(values =  c("red", "brown", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
+spec_hsv <- ggplot(data = hsv_res_df_3, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  scale_color_manual(values =  c("red", "brown", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
+spec_vsv <- ggplot(data = vsv_res_df_3, aes(x = time)) +
+  geom_line(aes(y = Ci, color = "Ci")) +
+  geom_line(aes(y = v0, color = "v0")) +
+  geom_line(aes(y = Cs, color = "Cs")) +
+  scale_color_manual(values =  c("red", "brown", "purple")) +
+  guides(color = FALSE, size = FALSE)
+
