@@ -25,9 +25,12 @@ adeno_parms <- append(base_parameters, c(
 # Appending adeno virus parameters with values for normal cells
 adeno_parms <- append(adeno_parms, c(
   bH = (adeno_parms["bC"] * 0.1), # Burst size of normal (Healthy) cells. Unit: -
-  lamdbaH = (adeno_parms["lambdaC"] * 0.1), # Lysing rate of normal (Healthy) cells
+  lambdaH = (adeno_parms["lambdaC"] * 0.1), # Lysing rate of normal (Healthy) cells
   betaH = (adeno_parms["betaC"] * 0.0025) #(4*10^4) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 ))
+
+# Replace weird "bH.bC" type names with just "bH"
+names(adeno_parms) <- gsub("\\..*", "", names(adeno_parms))
 
 # Defining hsv specific parameters for tumour cells
 hsv_parms <- append(base_parameters, c(
@@ -44,6 +47,9 @@ hsv_parms <- append(hsv_parms, c(
   betaH = (hsv_parms["betaC"] * 0.0025) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 ))
 
+# Replace weird "bH.bC" type names with just "bH"
+names(hsv_parms) <- gsub("\\..*", "", names(hsv_parms))
+
 # Defining vsv specific parameters for tumour cells
 vsv_parms <- append(base_parameters, c(
   lambdaC = 1/24, # Lysing rate of tumor cells. Unit: cell^-1hr^-1
@@ -58,6 +64,9 @@ vsv_parms <- append(vsv_parms, c(
   lambdaH = (vsv_parms["lambdaC"] * 0.1), # Lysing rate of normal (Healthy) cells
   betaH = (vsv_parms["betaC"] * 0.0025) # Infection rate of normal cells. Normal cell to tumor cell infection rate ratio is 0.0025
 ))
+
+# Replace weird "bH.bC" type names with just "bH"
+names(vsv_parms) <- gsub("\\..*", "", names(vsv_parms))
 
 # Defining the states
 state <- c(
