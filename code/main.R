@@ -204,7 +204,8 @@ reg_full_adeno <- ggplot(data = adeno_res_df, aes(x = time)) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
-  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  ylab("")
 
 reg_full_hsv <- ggplot(data = hsv_res_df, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
@@ -212,7 +213,8 @@ reg_full_hsv <- ggplot(data = hsv_res_df, aes(x = time)) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
-  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  ylab("")
 
 reg_full_vsv <- ggplot(data = vsv_res_df, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
@@ -220,7 +222,8 @@ reg_full_vsv <- ggplot(data = vsv_res_df, aes(x = time)) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
-  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple"))
+  scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
+  ylab("")
 
 # Increasing the burst and lysing rates of normal cells
 adeno_parms["bH"] = (adeno_parms["bC"] * 0.3) # Burst size of normal (Healthy) cells. Unit : -
@@ -253,7 +256,8 @@ des_adeno <- ggplot(data = adeno_res_df_2, aes(x = time)) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
   scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
 des_hsv <- ggplot(data = vsv_res_df_2, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
@@ -262,7 +266,8 @@ des_hsv <- ggplot(data = vsv_res_df_2, aes(x = time)) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
   scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
 des_vsv <- ggplot(data = hsv_res_df_2, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
@@ -271,7 +276,8 @@ des_vsv <- ggplot(data = hsv_res_df_2, aes(x = time)) +
   geom_line(aes(y = Cs, color = "Cs")) +
   geom_line(aes(y = Hs, color = "Hs")) +
   scale_color_manual(values =  c("red", "blue", "brown", "green", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
 
 # Increasing the burst and lysing rates of normal cells
@@ -305,20 +311,23 @@ spec_adeno <- ggplot(data = adeno_res_df_3, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
-  scale_color_manual(values =  c("red", "brown", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  scale_color_manual(values =  c("red", "blue", "purple")) +
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
 spec_hsv <- ggplot(data = hsv_res_df_3, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
-  scale_color_manual(values =  c("red", "brown", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  scale_color_manual(values =  c("red", "blue", "purple")) +
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
 spec_vsv <- ggplot(data = vsv_res_df_3, aes(x = time)) +
   geom_line(aes(y = Ci, color = "Ci")) +
   geom_line(aes(y = v0, color = "v0")) +
   geom_line(aes(y = Cs, color = "Cs")) +
-  scale_color_manual(values =  c("red", "brown", "purple")) +
-  guides(color = FALSE, size = FALSE)
+  scale_color_manual(values =  c("red", "blue", "purple")) +
+  guides(color = "none", size = "none") +
+  ylab("10Log + 1")
 
