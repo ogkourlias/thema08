@@ -194,26 +194,30 @@ grid.arrange(spec_adeno, reg_full_adeno, spec_hsv, reg_full_hsv,
 
 
 As can be seen in the plot above, when a virus only affects the cancerous cells,
-the results differ significantly. These and all procceeding plots
+the results differ significantly. These and all proceeding plots
 are presented in the following order: Adeno, hsv and vsv with 
 modified parameters, next to their default ranges. The differences can immediately
 be seen, but let us first examine the changes made.
 
-The rate of infection of normal cells has been changed to 0 here.
-Meaning that only tumor cells get infected and destroyed.
+The rate of infection of normal cells has been changed to 0 here. Hs and Hi
+are hidden here, because they stay at a constant due to not being infected.
+Meaning that only tumor cells get infected and destroyed. Resulting in 
+a premature ending of the treatment, with v0 hitting 0 and staying there. 
+Further establishing that the competition is of great importance to the results. 
+The balancing of healthy and cancerous cells being absent affects Ci and Cs.
+The Ci increases at first, as usual. But without healthy cells being infected too,
+it seems that Ci and V0 drop off swiftly. This means that Cs increases accordingly,
+which means cancerous cells grow faster than they are being eliminated.
 
-Further establishing that the competition 
-is of great importance to the results. The balancing of healthy and cancerous
-cells being absent affects Ci and Cs. The Ci increases at first, as usual. But
-without healthy cells being infected too, it seems that Ci and V drop off swiftly.
-This means that Cs increases accordingly, which means cancerous cells grow faster
-than they are being eliminated. With V0 hitting 0, the treatment comes to a premature
-stop. The immune system most likely being its stongest then.
+The problem arising here is that the immune system doesn't allow for repeat
+exposure to the treatment. Immunity won't allow the treatment to work a second
+time, with the same virus atleast.
 
 \newpage
 
-In addition to observing the specificity, the virus destructivity was also adjsuted
-and plotted below. Gradual increases seem to also rapidly decrease the Ci and Hi.
+In addition to observing the specificity, the virus destructibility was also adjsuted
+and plotted below.An increase of 5 times the default of 0.1 for obth burst size
+and lysis rate seem to also rapidly decrease the Ci and Hi.
 These two seem to decrease significantly slower when using the default values.
 As the gradual increases kept stacking up, it became clear that the Cs and Hs
 also hit the 0 point earlier. This makes sense, because cells get lysed
@@ -226,6 +230,11 @@ increased. Resulting in more virus particles in the system, at a faster rate.
 grid.arrange(des_adeno, reg_full_adeno, des_hsv, reg_full_hsv, 
              des_vsv, reg_full_vsv, ncol = 2, nrow = 3)
 ```
+Instead of increasing it five fold, other values were also tried. These essentialy
+ended up adhering to the same pattern seen above, just over different times.
+The healthy and cancerous cells eventually end up all being infected. While not
+unexpected, slight increases in burst size significantly increased infection rates.
+Even when increasing it by only 0.3 times the default value.
 
 \newpage
 
@@ -264,7 +273,10 @@ there is several conclusions which can be made on the basis of the models.
 As stated in the prior paper this one is based on, the competitiveness is once again
 reinforced as an important factor in virotherapy. The absence of such a mechanism
 surely inhibits the ability for the virus to help in treatment, as shown
-by the plots in results. Many factors go into ensuring this competition between 
+by the plots in results. The ability of the virus to also infect normal cells is
+detrimental in offering a proper treatment.
+
+Many factors go into ensuring this competition between 
 cells, viruses and immune system. Most of the important variables being 
 controllable, like the specificity of the virus. This is because viruses already
 differ in their abilities. But for them to be modified in the lab is also
@@ -276,6 +288,15 @@ makes it so that all the parameters change their in their slopes. This means
 that once again, the virus that is selected must be considered. Since viruses
 tend to vary in their replication and lysis rates. Whether a virus destroys the host
 too fast, too slow or just right for treatment, should be considered.
+
+The spread ability of the virus was also observed with the plots mentioned earlier.
+It seems that an increasing spread ability should be kept around a balanced point,
+where not all the healthy cells get infected too fast. When the susceptible amount of
+healthy cells hits 0, it means that all the healthy tissue has been infected. This is
+a very vital side effect of increasing the burst size. The goal of hitting 0
+susceptible cells in a treatment is still possible, but with a lower burst size.
+It would otherwise defeat the point of having a relatively side-effectless
+cancer treatment, which virotherapy aims to be.
 
 \newpage
 

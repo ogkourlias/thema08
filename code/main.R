@@ -67,12 +67,12 @@ reg_full_vsv <- ggplot(data = vsv_res_df, aes(x = time)) +
   ylab("")
 
 # Increasing the burst and lysing rates of normal cells
-adeno_parms["bH"] = (adeno_parms["bC"] * 0.3) # Burst size of normal (Healthy) cells. Unit : -
-adeno_parms["lambdaH"] = (adeno_parms["lambdaC"] * 0.3) # Lysing rate of normal (Healthy) cells
-hsv_parms["bH"] = (hsv_parms["bC"] * 0.3) # Burst size of normal (Healthy) cells. Unit : -
-hsv_parms["lambdaH"] = (hsv_parms["lambdaC"] * 0.3) # Lysing rate of normal (Healthy) cells
-vsv_parms["bH"] = (vsv_parms["bC"] * 0.3) # Burst size of normal (Healthy) cells. Unit : -
-vsv_parms["lambdaH"] = (vsv_parms["lambdaC"] * 0.3) # Lysing rate of normal (Healthy) cells
+adeno_parms["bH"] = (adeno_parms["bC"] * 0.5) # Burst size of normal (Healthy) cells. Unit : -
+adeno_parms["lambdaH"] = (adeno_parms["lambdaC"] * 0.5) # Lysing rate of normal (Healthy) cells
+hsv_parms["bH"] = (hsv_parms["bC"] * 0.5) # Burst size of normal (Healthy) cells. Unit : -
+hsv_parms["lambdaH"] = (hsv_parms["lambdaC"] * 0.5) # Lysing rate of normal (Healthy) cells
+vsv_parms["bH"] = (vsv_parms["bC"] * 0.5) # Burst size of normal (Healthy) cells. Unit : -
+vsv_parms["lambdaH"] = (vsv_parms["lambdaC"] * 0.5) # Lysing rate of normal (Healthy) cells
 
 # Defining the desolve outputs to their respective variables.
 adeno_res_2<- ode(y = state, times = times, func = vir, parms = adeno_parms)
