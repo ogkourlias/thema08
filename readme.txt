@@ -1,5 +1,5 @@
 Authors.
-Dennis Wiersema & Orfeas Gkourlias.
+Dennis Wiersma & Orfeas Gkourlias.
 Hanzehogeschool Groningen 2022.
 
 Project.
@@ -23,4 +23,4 @@ To create the PDF file, follow the steps below.
 Contact Info.
 Any questions or remarks may be sent to:
 O.gkourlias@st.hanze.nl
-D.wiersema@st.hanze.nl
+De.wiersma@st.hanze.nl
