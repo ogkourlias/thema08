@@ -6,7 +6,7 @@ library(ggplot2)
 library(gridExtra)
 
 #setwd("./thema08/code")
-source("functions.R")
+source("~/thema08/code/functions.R")
 
 ########## DESOLVE W/ DATA PROCESSING ##########
 

@@ -1,4 +1,4 @@
-source("parameters.R")
+source("~/thema08/code/parameters.R")
 
 ########## MODEL FUNCTION ##########
 
